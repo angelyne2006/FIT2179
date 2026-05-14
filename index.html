@@ -1,11 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Malaysia Flood Visualisation</title>
 </head>
 <body>
-    <h1>Heading 1</h1>
-    <p>My First Paragraph.</p>
-    <p>My Second Paragraph.</p>
+
+  <div class="header">
+    <h1>When Rain Becomes a Disaster</h1>
+    <p>Understanding Malaysia's Flood Crisis</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <h2>Malaysia's Monsoon: When and Where Rain Becomes a Threat</h2>
+    <div class="pure-g">
+      <div class="pure-u-1"><div id="chart1"></div></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-2"><div id="chart2"></div></div>
+      <div class="pure-u-1-2"><div id="chart3"></div></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1"><div id="chart4"></div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <h2>When Floods Hit: The Human and Environmental Impact</h2>
+    <div class="pure-g">
+      <div class="pure-u-1-2"><div id="chart5"></div></div>
+      <div class="pure-u-1-2"><div id="chart6"></div></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-2"><div id="chart7"></div></div>
+      <div class="pure-u-1-2"><div id="chart8"></div></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <h2>The Price Malaysia Pays: Economic Damage</h2>
+    <div class="pure-g">
+      <div class="pure-u-1"><div id="chart9"></div></div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1-2"><div id="chart10"></div></div>
+      <div class="pure-u-1-2"><div id="chart11"></div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Author: Angelyne Chai Zi Xuan | FIT2179 Data Visualisation | Monash University Malaysia | May 2026</p>
+    <p>Sources: DOSM Special Report on Impact of Floods 2025 | HDX CHIRPS Rainfall | HDX NDVI | ReliefWeb/IFRC | DOSM Population Statistics</p>
+  </div>
+
+  <script src="vega_lite_vis.js"></script>
 </body>
 </html>

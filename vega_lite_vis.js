@@ -1,0 +1,21 @@
+var chart1 = "js/chart1.vg.json";
+var chart2 = "js/chart2.vg.json";
+var chart3 = "js/chart3.vg.json";
+var chart4 = "js/chart4.vg.json";
+var chart5 = "js/chart5.vg.json";
+var chart6 = "js/chart6.vg.json";
+var chart7 = "js/chart7.vg.json";
+var chart8 = "js/chart8.vg.json";
+var chart9 = "js/chart9.vg.json";
+var chart10 = "js/chart10.vg.json";
+
+vegaEmbed("#chart1", chart1).catch(console.error);
+vegaEmbed("#chart2", chart2).catch(console.error);
+vegaEmbed("#chart3", chart3).catch(console.error);
+vegaEmbed("#chart4", chart4).catch(console.error);
+vegaEmbed("#chart5", chart5).catch(console.error);
+vegaEmbed("#chart6", chart6).catch(console.error);
+vegaEmbed("#chart7", chart7).catch(console.error);
+vegaEmbed("#chart8", chart8).catch(console.error);
+vegaEmbed("#chart9", chart9).catch(console.error);
+vegaEmbed("#chart10", chart10).catch(console.error);
