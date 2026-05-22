@@ -1,0 +1,62 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 375,
+  "title": {
+    "text": "Flood Losses by Damage Category (2024 vs 2025)",
+    "subtitle": "RM Million — Infrastructure losses worsened despite overall improvement",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/flood_losses_category.csv"
+  },
+  "transform": [
+    {"calculate": "toString(datum.year)", "as": "Year"}
+  ],
+  "encoding": {
+    "y": {
+      "field": "category",
+      "type": "nominal",
+      "title": "Category",
+      "sort": null
+    },
+    "x": {
+      "field": "loss_rm_million",
+      "type": "quantitative",
+      "title": "Loss (RM Million)"
+    },
+    "yOffset": {
+      "field": "Year",
+      "type": "nominal"
+    }
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 3},
+      "encoding": {
+        "color": {
+          "field": "Year",
+          "type": "nominal",
+          "scale": {
+            "domain": ["2024", "2025"],
+            "range": ["#1a3a5c", "#e63946"]
+          },
+          "legend": {"title": "Year"}
+        },
+        "tooltip": [
+          {"field": "category", "type": "nominal", "title": "Category"},
+          {"field": "Year", "type": "nominal", "title": "Year"},
+          {"field": "loss_rm_million", "type": "quantitative", "title": "Loss (RM Million)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 3, "fontSize": 9},
+      "encoding": {
+        "text": {"field": "loss_rm_million", "type": "quantitative", "format": ",.1f"},
+        "color": {"value": "black"}
+      }
+    }
+  ]
+}

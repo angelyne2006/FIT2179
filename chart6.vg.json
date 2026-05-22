@@ -1,0 +1,78 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 350,
+  "title": {
+    "text": "Flood Evacuations Across Malaysia (Jan 2025 – May 2025)",
+    "subtitle": "Each bubble = one evacuation event · Size = number of evacuees",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/malaysia_flood_evacuees_reliefweb.csv"
+  },
+  "transform": [
+    {"filter": "datum.state != 'Multiple States'"},
+    {
+      "calculate": "datetime(split(datum.date, '/')[2], split(datum.date, '/')[1] - 1, split(datum.date, '/')[0])",
+      "as": "parsed_date"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "circle", "opacity": 0.8},
+      "encoding": {
+        "x": {
+        "field": "parsed_date",
+        "type": "temporal",
+        "title": "Date",
+        "scale": {"domainMin": {"year": 2024, "month": 12, "date": 1}},
+        "axis": {"format": "%b %Y", "labelAngle": -30, "tickCount": 6}
+      },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": ["Sarawak", "Sabah", "Johor", "Selangor", "Pahang", "Negeri Sembilan", "Terengganu", "Perak"]
+        },
+        "size": {
+          "field": "evacuees",
+          "type": "quantitative",
+          "scale": {"range": [40, 3000]},
+          "legend": {"title": "No. of Evacuees", "values": [100, 1000, 5000, 12000]}
+        },
+        "color": {"value": "#1a3a5c"},
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "parsed_date", "type": "temporal", "title": "Date", "format": "%d %b %Y"},
+          {"field": "evacuees", "type": "quantitative", "title": "Evacuees", "format": ","},
+          {"field": "relief_centres", "type": "quantitative", "title": "Relief Centres"},
+          {"field": "source", "type": "nominal", "title": "Source"}
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "dy": -10,
+        "fontSize": 9,
+        "color": "#e63946",
+        "fontWeight": "bold"
+      },
+      "transform": [
+        {"filter": "datum.evacuees > 20000"}
+      ],
+      "encoding": {
+        "x": {"field": "parsed_date", "type": "temporal"},
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": ["Sarawak", "Sabah", "Johor", "Selangor", "Pahang", "Negeri Sembilan", "Terengganu", "Perak"]
+        },
+        "text": {"field": "evacuees", "type": "quantitative", "format": ","}
+      }
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 300,
+  "title": {
+    "text": "Flood Loss Per Capita by State (2025)",
+    "subtitle": "RM per person — smaller states bear a heavier burden",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/flood_losses_per_capita.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "point", "filled": true, "size": 150},
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State",
+          "sort": {"field": "loss_per_capita_rm", "order": "descending"}
+        },
+        "x": {
+          "field": "loss_per_capita_rm",
+          "type": "quantitative",
+          "title": "Loss Per Capita (RM)"
+        },
+        "color": {
+          "field": "loss_per_capita_rm",
+          "type": "quantitative",
+          "scale": {"scheme": "reds"},
+          "legend": {"title": "Loss Per Capita (RM)"}
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "loss_per_capita_rm", "type": "quantitative", "title": "Loss Per Capita (RM)", "format": ",.2f"},
+          {"field": "loss_2025_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)", "format": ",.1f"},
+          {"field": "population_thousands", "type": "quantitative", "title": "Population (thousands)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 10},
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": {"field": "loss_per_capita_rm", "order": "descending"}
+        },
+        "x": {"field": "loss_per_capita_rm", "type": "quantitative"},
+        "text": {"field": "loss_per_capita_rm", "type": "quantitative", "format": ",.2f"}
+      }
+    }
+  ]
+}

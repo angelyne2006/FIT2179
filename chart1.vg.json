@@ -1,0 +1,77 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 300,
+  "title": {
+    "text": "Average Monthly Rainfall Across Malaysia (2025)",
+    "subtitle": "mm — averaged across all states per dekad aggregated by month",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/mys-rainfall-subnat-5ytd.csv"
+  },
+  "transform": [
+    {"filter": "datum.adm_level == 1"},
+    {"filter": "year(datum.date) == 2025"},
+    {
+      "calculate": "month(datum.date)",
+      "as": "month_num"
+    },
+    {
+      "aggregate": [{"op": "mean", "field": "rfh", "as": "avg_rfh"}],
+      "groupby": ["month_num"]
+    },
+    {
+      "calculate": "datum.month_num == 0 ? 'Jan' : datum.month_num == 1 ? 'Feb' : datum.month_num == 2 ? 'Mar' : datum.month_num == 3 ? 'Apr' : datum.month_num == 4 ? 'May' : datum.month_num == 5 ? 'Jun' : datum.month_num == 6 ? 'Jul' : datum.month_num == 7 ? 'Aug' : datum.month_num == 8 ? 'Sep' : datum.month_num == 9 ? 'Oct' : datum.month_num == 10 ? 'Nov' : 'Dec'",
+      "as": "month_name"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {"type": "area", "opacity": 0.3, "color": "#1a3a5c"},
+      "encoding": {
+        "x": {
+          "field": "month_num",
+          "type": "ordinal",
+          "title": "Month",
+          "axis": {
+            "labelExpr": "datum.value == 0 ? 'Jan' : datum.value == 1 ? 'Feb' : datum.value == 2 ? 'Mar' : datum.value == 3 ? 'Apr' : datum.value == 4 ? 'May' : datum.value == 5 ? 'Jun' : datum.value == 6 ? 'Jul' : datum.value == 7 ? 'Aug' : datum.value == 8 ? 'Sep' : datum.value == 9 ? 'Oct' : datum.value == 10 ? 'Nov' : 'Dec'",
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "avg_rfh",
+          "type": "quantitative",
+          "title": "Average Rainfall (mm)"
+        }
+      }
+    },
+    {
+      "mark": {"type": "line", "color": "#1a3a5c", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "month_num", "type": "ordinal"},
+        "y": {"field": "avg_rfh", "type": "quantitative"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "color": "#e63946", "size": 80},
+      "encoding": {
+        "x": {"field": "month_num", "type": "ordinal"},
+        "y": {"field": "avg_rfh", "type": "quantitative"},
+        "tooltip": [
+          {"field": "month_name", "type": "nominal", "title": "Month"},
+          {"field": "avg_rfh", "type": "quantitative", "title": "Avg Rainfall (mm)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "dy": -12, "fontSize": 10},
+      "encoding": {
+        "x": {"field": "month_num", "type": "ordinal"},
+        "y": {"field": "avg_rfh", "type": "quantitative"},
+        "text": {"field": "avg_rfh", "type": "quantitative", "format": ",.1f"}
+      }
+    }
+  ]
+}

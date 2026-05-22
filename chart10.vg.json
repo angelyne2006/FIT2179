@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 300,
+  "title": {
+    "text": "Flood Losses by State in Malaysia (2025)",
+    "subtitle": "Ranked by Total Loss in RM Million",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/natural_flood_vulnerability.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": "#1a3a5c"},
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State",
+          "sort": "-x"
+        },
+        "x": {
+          "field": "Loss (millions RM)",
+          "type": "quantitative",
+          "title": "Total Loss (RM Million)"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "Loss (millions RM)", "type": "quantitative", "title": "Loss (RM Million)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "left", "dx": 5, "fontSize": 11},
+      "encoding": {
+        "y": {"field": "state", "type": "nominal", "sort": "-x"},
+        "x": {"field": "Loss (millions RM)", "type": "quantitative"},
+        "text": {"field": "Loss (millions RM)", "type": "quantitative", "format": ",.1f"}
+      }
+    }
+  ]
+}

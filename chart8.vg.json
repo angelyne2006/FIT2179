@@ -1,0 +1,43 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 300,
+  "title": {
+    "text": "Total Flood Losses in Malaysia (2021–2025)",
+    "subtitle": "RM Million",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/flood_losses_yearly.csv"
+  },
+  "layer": [
+    {
+      "mark": {"type": "rule", "color": "#1a3a5c", "strokeWidth": 2},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0}},
+        "y": {"field": "total_loss_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)"},
+        "y2": {"datum": 0}
+      }
+    },
+    {
+      "mark": {"type": "circle", "color": "#e63946", "size": 150},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "axis": {"labelAngle": 0}},
+        "y": {"field": "total_loss_rm_million", "type": "quantitative"},
+        "tooltip": [
+          {"field": "year", "type": "ordinal", "title": "Year"},
+          {"field": "total_loss_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)", "format": ",.1f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "dy": -15, "fontSize": 11},
+      "encoding": {
+        "x": {"field": "year", "type": "ordinal", "axis": {"labelAngle": 0}},
+        "y": {"field": "total_loss_rm_million", "type": "quantitative"},
+        "text": {"field": "total_loss_rm_million", "type": "quantitative", "format": ",.0f"}
+      }
+    }
+  ]
+}

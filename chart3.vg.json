@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": "container",
+  "height": 400,
+  "title": {
+    "text": "Rainfall Anomaly by State (2025)",
+    "subtitle": "% of long-term average — above 100% means wetter than normal",
+    "fontSize": 16,
+    "subtitleFontSize": 12
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/mys-rainfall-subnat-5ytd.csv"
+  },
+  "transform": [
+    {"filter": "datum.adm_level == 1"},
+    {"filter": "year(datum.date) == 2025"},
+    {
+      "calculate": "datum.PCODE == 'MY01' ? 'Johor' : datum.PCODE == 'MY02' ? 'Kedah' : datum.PCODE == 'MY03' ? 'Kelantan' : datum.PCODE == 'MY04' ? 'W.P. Kuala Lumpur' : datum.PCODE == 'MY05' ? 'W.P. Labuan' : datum.PCODE == 'MY06' ? 'Melaka' : datum.PCODE == 'MY07' ? 'Negeri Sembilan' : datum.PCODE == 'MY08' ? 'Pahang' : datum.PCODE == 'MY09' ? 'Perak' : datum.PCODE == 'MY10' ? 'Perlis' : datum.PCODE == 'MY11' ? 'Pulau Pinang' : datum.PCODE == 'MY12' ? 'Sabah' : datum.PCODE == 'MY13' ? 'Sarawak' : datum.PCODE == 'MY15' ? 'Terengganu' : datum.PCODE == 'MY16' ? 'W.P. Putrajaya' : 'Selangor'",
+      "as": "state"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "tick",
+        "thickness": 2,
+        "size": 20
+      },
+      "encoding": {
+        "x": {
+          "field": "rfq",
+          "type": "quantitative",
+          "title": "Rainfall Anomaly (%)"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": "State"
+        },
+        "color": {
+          "condition": {"test": "datum.rfq > 100", "value": "#e63946"},
+          "value": "#1a3a5c"
+        },
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "rfq", "type": "quantitative", "title": "Rainfall Anomaly (%)", "format": ",.1f"},
+          {"field": "date", "type": "nominal", "title": "Date"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "rule", "color": "gray", "strokeDash": [4, 4]},
+      "encoding": {
+        "x": {"datum": 100}
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 5,
+        "dy": -180,
+        "fontSize": 10,
+        "color": "gray"
+      },
+      "encoding": {
+        "x": {"datum": 100},
+        "text": {"value": "100% = historical normal"}
+      }
+    }
+  ]
+}
