@@ -13,7 +13,7 @@
   },
   "layer": [
     {
-      "mark": {"type": "rule", "color": "#1a3a5c", "strokeWidth": 2},
+      "mark": {"type": "rule", "color": "#e9c46a", "strokeWidth": 2},
       "encoding": {
         "x": {"field": "year", "type": "ordinal", "title": "Year", "axis": {"labelAngle": 0}},
         "y": {"field": "total_loss_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)"},
