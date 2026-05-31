@@ -5,7 +5,7 @@
   "padding": {"top": 10, "bottom": 30, "left": 10, "right": 60},
   "title": {
     "text": "Vegetation Health by State (Jan–Mar 2025)",
-    "subtitle": "Greener = healthier vegetation · Lower Vegetation Index Mean = flood-stressed",
+    "subtitle": "Greener = healthier vegetation | Lower Vegetation Index Mean = flood-stressed",
     "fontSize": 14,
     "subtitleFontSize": 11
   },
