@@ -1,10 +1,10 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 300,
+  "height": 380,
   "title": {
-    "text": "Average Monthly Rainfall Across Malaysia (2025)",
-    "subtitle": "mm — averaged across all states per dekad aggregated by month",
+    "text": "Monthly Rainfall Anomaly by State (2025)",
+    "subtitle": "% of long-term average — each dot = one month · above 100% means wetter than normal",
     "fontSize": 16,
     "subtitleFontSize": 12
   },
@@ -12,65 +12,68 @@
     "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/mys-rainfall-subnat-5ytd.csv"
   },
   "transform": [
-    {"filter": "datum.adm_level == 1"},
-    {"filter": "year(datum.date) == 2025"},
     {
-      "calculate": "month(datum.date)",
+      "calculate": "datum.PCODE == 'MY01' ? 'Johor' : datum.PCODE == 'MY02' ? 'Kedah' : datum.PCODE == 'MY03' ? 'Kelantan' : datum.PCODE == 'MY04' ? 'W.P. KL' : datum.PCODE == 'MY05' ? 'W.P. Labuan' : datum.PCODE == 'MY06' ? 'Melaka' : datum.PCODE == 'MY07' ? 'N. Sembilan' : datum.PCODE == 'MY08' ? 'Pahang' : datum.PCODE == 'MY09' ? 'Perak' : datum.PCODE == 'MY10' ? 'Perlis' : datum.PCODE == 'MY11' ? 'P. Pinang' : datum.PCODE == 'MY12' ? 'Sabah' : datum.PCODE == 'MY13' ? 'Sarawak' : datum.PCODE == 'MY15' ? 'Terengganu' : datum.PCODE == 'MY16' ? 'W.P. Putrajaya' : 'Selangor'",
+      "as": "state"
+    },
+    {"filter": "datum.rfq != null && datum.rfq != ''"},
+    {
+      "calculate": "parseInt(split(datum.date, '-')[1])",
       "as": "month_num"
     },
     {
-      "aggregate": [{"op": "mean", "field": "rfh", "as": "avg_rfh"}],
-      "groupby": ["month_num"]
+      "aggregate": [{"op": "mean", "field": "rfq", "as": "avg_rfq"}],
+      "groupby": ["state", "month_num"]
     },
     {
-      "calculate": "datum.month_num == 0 ? 'Jan' : datum.month_num == 1 ? 'Feb' : datum.month_num == 2 ? 'Mar' : datum.month_num == 3 ? 'Apr' : datum.month_num == 4 ? 'May' : datum.month_num == 5 ? 'Jun' : datum.month_num == 6 ? 'Jul' : datum.month_num == 7 ? 'Aug' : datum.month_num == 8 ? 'Sep' : datum.month_num == 9 ? 'Oct' : datum.month_num == 10 ? 'Nov' : 'Dec'",
+      "calculate": "datum.month_num == 1 ? 'Jan' : datum.month_num == 2 ? 'Feb' : datum.month_num == 3 ? 'Mar' : datum.month_num == 4 ? 'Apr' : datum.month_num == 5 ? 'May' : datum.month_num == 6 ? 'Jun' : datum.month_num == 7 ? 'Jul' : datum.month_num == 8 ? 'Aug' : datum.month_num == 9 ? 'Sep' : datum.month_num == 10 ? 'Oct' : datum.month_num == 11 ? 'Nov' : 'Dec'",
       "as": "month_name"
     }
   ],
   "layer": [
     {
-      "mark": {"type": "area", "opacity": 0.3, "color": "#1a3a5c"},
+      "mark": {"type": "rule", "color": "#e63946", "strokeDash": [4, 4], "strokeWidth": 1.5},
       "encoding": {
+        "x": {"datum": 100}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 60, "opacity": 0.8},
+      "encoding": {
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": {"field": "avg_rfq", "op": "max", "order": "descending"}
+        },
         "x": {
-          "field": "month_num",
-          "type": "ordinal",
+          "field": "avg_rfq",
+          "type": "quantitative",
+          "title": "Average Rainfall Anomaly (%)",
+          "axis": {"format": ",.0f"}
+        },
+        "color": {
+          "field": "month_name",
+          "type": "nominal",
           "title": "Month",
-          "axis": {
-            "labelExpr": "datum.value == 0 ? 'Jan' : datum.value == 1 ? 'Feb' : datum.value == 2 ? 'Mar' : datum.value == 3 ? 'Apr' : datum.value == 4 ? 'May' : datum.value == 5 ? 'Jun' : datum.value == 6 ? 'Jul' : datum.value == 7 ? 'Aug' : datum.value == 8 ? 'Sep' : datum.value == 9 ? 'Oct' : datum.value == 10 ? 'Nov' : 'Dec'",
-            "labelAngle": 0
+          "scale": {
+            "domain": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            "range": ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf","#aec7e8","#ffbb78"]
           }
         },
-        "y": {
-          "field": "avg_rfh",
-          "type": "quantitative",
-          "title": "Average Rainfall (mm)"
-        }
-      }
-    },
-    {
-      "mark": {"type": "line", "color": "#1a3a5c", "strokeWidth": 2},
-      "encoding": {
-        "x": {"field": "month_num", "type": "ordinal"},
-        "y": {"field": "avg_rfh", "type": "quantitative"}
-      }
-    },
-    {
-      "mark": {"type": "point", "filled": true, "color": "#e63946", "size": 80},
-      "encoding": {
-        "x": {"field": "month_num", "type": "ordinal"},
-        "y": {"field": "avg_rfh", "type": "quantitative"},
         "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
           {"field": "month_name", "type": "nominal", "title": "Month"},
-          {"field": "avg_rfh", "type": "quantitative", "title": "Avg Rainfall (mm)", "format": ",.1f"}
+          {"field": "avg_rfq", "type": "quantitative", "title": "Avg Anomaly (%)", "format": ",.1f"}
         ]
       }
     },
     {
-      "mark": {"type": "text", "dy": -12, "fontSize": 10},
+      "mark": {"type": "text", "align": "left", "dx": 5, "dy": -8, "fontSize": 9, "color": "#e63946"},
       "encoding": {
-        "x": {"field": "month_num", "type": "ordinal"},
-        "y": {"field": "avg_rfh", "type": "quantitative"},
-        "text": {"field": "avg_rfh", "type": "quantitative", "format": ",.1f"}
+        "x": {"datum": 100},
+        "y": {"datum": "Sarawak"},
+        "text": {"value": "100% = normal"}
       }
     }
   ]
