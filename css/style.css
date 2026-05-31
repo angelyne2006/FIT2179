@@ -2,38 +2,32 @@
   font-family: 'Inter', sans-serif;
   box-sizing: border-box;
 }
-
 body {
   background-color: #f0f4f8;
   margin: 0;
   padding: 0;
 }
-
 .header {
   background-color: #1a3a5c;
   color: white;
   padding: 50px 40px;
   text-align: center;
 }
-
 .header h1 {
   font-size: 2.5em;
   font-weight: 700;
   margin: 0 0 10px 0;
 }
-
 .header p {
   font-size: 1.2em;
   margin: 0;
   opacity: 0.85;
 }
-
 .section {
   padding: 20px 40px;
   max-width: 1200px;
   margin: 0 auto;
 }
-
 .section h2 {
   font-size: 1.6em;
   font-weight: 600;
@@ -42,51 +36,55 @@ body {
   padding-left: 15px;
   margin-bottom: 25px;
 }
-
 .chart-card {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 15px;
   margin: 8px;
+  display: flex;
+  flex-direction: column;
 }
-
+.chart-card .caption {
+  margin-top: auto;
+}
 .pure-u-1-2 {
   padding: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
-
 .pure-u-1-2 .chart-card {
   flex: 1;
 }
-
 .pure-u-1 {
   padding: 0;
   box-sizing: border-box;
 }
-
 .pure-g {
   align-items: stretch;
 }
-
 .footer {
   background-color: #1a3a5c;
   color: white;
   padding: 25px 40px;
-  text-align: center;
+  text-align: left;
   font-size: 0.85em;
   line-height: 1.8;
   margin-top: 20px;
 }
-
+.footer a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+.footer a:hover {
+  color: white;
+}
 .intro {
   font-size: 1.1em;
   color: rgba(255, 255, 255, 0.9);
   margin-top: 10px;
 }
-
 .intro-text {
   font-size: 1.05em;
   color: #333;
@@ -94,20 +92,17 @@ body {
   max-width: 100%;
   margin: 0;
 }
-
 .section-header {
   display: flex;
   align-items: center;
   gap: 15px;
   margin-bottom: 10px;
 }
-
 .section-number {
   font-size: 2em;
   font-weight: 700;
   color: #e63946;
 }
-
 .section-intro {
   color: #555;
   font-size: 1em;
@@ -115,7 +110,6 @@ body {
   max-width: 800px;
   line-height: 1.7;
 }
-
 .caption {
   font-size: 0.85em;
   color: #666;
@@ -124,18 +118,15 @@ body {
   margin-top: 5px;
   margin-bottom: 0;
 }
-
 .vega-embed {
   width: 100% !important;
 }
-
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   padding: 10px;
 }
-
 .stat-box {
   background-color: #f0f4f8;
   border-radius: 8px;
@@ -145,35 +136,14 @@ body {
   align-items: center;
   text-align: center;
 }
-
 .stat-number {
   font-size: 1.4em;
   font-weight: 700;
   color: #e63946;
   margin-bottom: 5px;
 }
-
 .stat-label {
   font-size: 0.8em;
   color: #555;
   line-height: 1.4;
 }
-
-.chart-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-card .caption {
-  margin-top: auto;
-}
-
-.footer a {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: underline;
-}
-
-.footer a:hover {
-  color: white;
-}
-
