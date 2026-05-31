@@ -48,14 +48,14 @@
       }
     },
     {
-      "mark": {"type": "line", "color": "#1a3a5c", "strokeWidth": 2},
+      "mark": {"type": "line", "color": "#2a9d8f", "strokeWidth": 2},
       "encoding": {
         "x": {"field": "month_num", "type": "ordinal"},
         "y": {"field": "avg_rfh", "type": "quantitative"}
       }
     },
     {
-      "mark": {"type": "point", "filled": true, "color": "#e63946", "size": 80},
+      "mark": {"type": "point", "filled": true, "color": "#000000", "size": 80},
       "encoding": {
         "x": {"field": "month_num", "type": "ordinal"},
         "y": {"field": "avg_rfh", "type": "quantitative"},
