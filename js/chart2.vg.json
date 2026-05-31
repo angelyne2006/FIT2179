@@ -4,7 +4,7 @@
   "height": 300,
   "title": {
     "text": "Average Monthly Rainfall Across Malaysia (2025)",
-    "subtitle": "mm — averaged across all states per dekad aggregated by month",
+    "subtitle": "mm - averaged across all states per dekad aggregated by month",
     "fontSize": 16,
     "subtitleFontSize": 12
   },
