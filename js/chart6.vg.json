@@ -41,7 +41,7 @@
           "scale": {"range": [40, 3000]},
           "legend": {"title": "No. of Evacuees", "values": [100, 1000, 5000, 12000]}
         },
-        "color": {"value": "#1a3a5c"},
+        "color": {"value": "#7b2d8b"},
         "tooltip": [
           {"field": "state", "type": "nominal", "title": "State"},
           {"field": "parsed_date", "type": "temporal", "title": "Date", "format": "%d %b %Y"},
