@@ -4,7 +4,7 @@
   "height": 350,
   "title": {
     "text": "Flood Evacuations Across Malaysia (Jan 2025 – May 2025)",
-    "subtitle": "Each bubble = one evacuation event · Size = number of evacuees",
+    "subtitle": "Each bubble = one evacuation event | Size = number of evacuees",
     "fontSize": 16,
     "subtitleFontSize": 12
   },
