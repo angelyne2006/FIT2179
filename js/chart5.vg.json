@@ -1,12 +1,13 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 420,
+  "height": 380,
+  "padding": {"top": 10, "bottom": 30, "left": 10, "right": 60},
   "title": {
-    "text": "Vegetation Stress & Flood Evacuees by State (Jan–Mar 2025)",
-    "subtitle": "Colour = avg NDVI (greener = healthier vegetation) · Circle = total evacuees recorded",
-    "fontSize": 16,
-    "subtitleFontSize": 12
+    "text": "Vegetation Health by State (Jan–Mar 2025)",
+    "subtitle": "Greener = healthier vegetation · Lower Vegetation Index Mean = flood-stressed",
+    "fontSize": 14,
+    "subtitleFontSize": 11
   },
   "projection": {"type": "mercator"},
   "layer": [
@@ -30,87 +31,52 @@
       "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
       "encoding": {
         "color": {
-          "field": "vim",
-          "type": "quantitative",
-          "scale": {"domain": [0.52, 0.85], "scheme": "greens"},
-          "legend": {"title": "Avg NDVI (vegetation health)"}
+          "condition": {"test": "datum.vim != null", "field": "vim", "type": "quantitative", "scale": {"domain": [0.52, 0.85], "scheme": "greens"}, "legend": {"title": "Vegetation Index Mean"}},
+          "value": "#ccc"
         },
         "tooltip": [
           {"field": "properties.adm1_name", "type": "nominal", "title": "State"},
-          {"field": "vim", "type": "quantitative", "title": "Avg NDVI", "format": ".3f"}
+          {"field": "vim", "type": "quantitative", "title": "Vegetation Index Mean", "format": ".3f"}
         ]
       }
     },
     {
       "data": {
-        "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/js/malaysia.topojson",
-        "format": {"type": "topojson", "feature": "malaysia.topojson"}
-      },
-      "transform": [
-        {
-          "lookup": "properties.adm1_name",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/malaysia_flood_evacuees_reliefweb.csv"
-            },
-            "key": "state",
-            "fields": ["evacuees"]
-          }
-        },
-        {"filter": "datum.evacuees > 0"}
-      ],
-      "mark": {"type": "circle", "opacity": 0.75, "stroke": "#e63946", "strokeWidth": 1.2},
-      "encoding": {
-        "longitude": {"field": "properties.center_lon", "type": "quantitative"},
-        "latitude": {"field": "properties.center_lat", "type": "quantitative"},
-        "size": {
-          "field": "evacuees",
-          "type": "quantitative",
-          "scale": {"range": [60, 3500]},
-          "legend": {"title": "Evacuees", "values": [100, 1000, 5000, 13000]}
-        },
-        "color": {"value": "#e63946"},
-        "tooltip": [
-          {"field": "properties.adm1_name", "type": "nominal", "title": "State"},
-          {"field": "evacuees", "type": "quantitative", "title": "Total Evacuees", "format": ","}
+        "values": [
+          {"name": "Johor",         "lat": 2.0469,  "lon": 103.3011, "label_lon": 104.2,  "label_lat": 1.8},
+          {"name": "Kedah",         "lat": 5.8120,  "lon": 100.6799, "label_lon": 99.6,   "label_lat": 6.1},
+          {"name": "Kelantan",      "lat": 5.3980,  "lon": 102.0766, "label_lon": 103.2,  "label_lat": 5.7},
+          {"name": "W.P. KL",       "lat": 3.1312,  "lon": 101.6708, "label_lon": 100.3,  "label_lat": 3.5},
+          {"name": "W.P. Labuan",   "lat": 5.3163,  "lon": 115.2186, "label_lon": 114.2,  "label_lat": 5.6},
+          {"name": "Melaka",        "lat": 2.2969,  "lon": 102.2935, "label_lon": 101.0,  "label_lat": 1.8},
+          {"name": "N. Sembilan",   "lat": 2.7747,  "lon": 102.2188, "label_lon": 100.8,  "label_lat": 2.4},
+          {"name": "Pahang",        "lat": 3.6174,  "lon": 102.5953, "label_lon": 103.7,  "label_lat": 3.9},
+          {"name": "Perak",         "lat": 4.7998,  "lon": 101.0192, "label_lon": 99.7,   "label_lat": 4.8},
+          {"name": "Perlis",        "lat": 6.4907,  "lon": 100.2642, "label_lon": 99.3,   "label_lat": 6.7},
+          {"name": "P. Pinang",     "lat": 5.3577,  "lon": 100.4562, "label_lon": 99.3,   "label_lat": 5.7},
+          {"name": "Sabah",         "lat": 5.5818,  "lon": 117.2216, "label_lon": 118.3,  "label_lat": 5.8},
+          {"name": "Sarawak",       "lat": 2.9285,  "lon": 113.6706, "label_lon": 113.6,  "label_lat": 1.7},
+          {"name": "Selangor",      "lat": 3.2296,  "lon": 101.5131, "label_lon": 100.2,  "label_lat": 3.0},
+          {"name": "Terengganu",    "lat": 4.8672,  "lon": 103.0057, "label_lon": 104.2,  "label_lat": 4.5},
+          {"name": "Putrajaya",     "lat": 2.8941,  "lon": 101.6879, "label_lon": 100.3,  "label_lat": 2.6}
         ]
-      }
-    },
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/js/malaysia.topojson",
-        "format": {"type": "topojson", "feature": "malaysia.topojson"}
       },
-      "transform": [
-        {
-          "calculate": "datum.properties.adm1_name == 'W.P. Kuala Lumpur' ? datum.properties.center_lon - 0.6 : datum.properties.adm1_name == 'W.P. Putrajaya' ? datum.properties.center_lon - 0.8 : datum.properties.adm1_name == 'Selangor' ? datum.properties.center_lon - 0.5 : datum.properties.adm1_name == 'Melaka' ? datum.properties.center_lon - 0.7 : datum.properties.adm1_name == 'Negeri Sembilan' ? datum.properties.center_lon - 0.6 : datum.properties.adm1_name == 'Pulau Pinang' ? datum.properties.center_lon - 0.5 : datum.properties.adm1_name == 'Perlis' ? datum.properties.center_lon - 0.4 : datum.properties.center_lon",
-          "as": "label_lon"
-        },
-        {
-          "calculate": "datum.properties.adm1_name == 'W.P. Kuala Lumpur' ? datum.properties.center_lat + 0.3 : datum.properties.adm1_name == 'W.P. Putrajaya' ? datum.properties.center_lat - 0.3 : datum.properties.adm1_name == 'Melaka' ? datum.properties.center_lat - 0.3 : datum.properties.adm1_name == 'Negeri Sembilan' ? datum.properties.center_lat + 0.2 : datum.properties.adm1_name == 'Pulau Pinang' ? datum.properties.center_lat + 0.4 : datum.properties.adm1_name == 'Perlis' ? datum.properties.center_lat + 0.4 : datum.properties.center_lat",
-          "as": "label_lat"
-        },
-        {
-          "calculate": "datum.properties.adm1_name == 'W.P. Kuala Lumpur' ? 'W.P. KL' : datum.properties.adm1_name == 'W.P. Putrajaya' ? 'Putrajaya' : datum.properties.adm1_name == 'Negeri Sembilan' ? 'N. Sembilan' : datum.properties.adm1_name == 'Pulau Pinang' ? 'P. Pinang' : datum.properties.adm1_name",
-          "as": "short_name"
-        }
-      ],
       "layer": [
         {
-          "mark": {"type": "rule", "color": "#666", "strokeWidth": 0.7, "opacity": 0.6},
+          "mark": {"type": "rule", "color": "#999", "strokeWidth": 0.7, "opacity": 0.8},
           "encoding": {
-            "longitude": {"field": "properties.center_lon", "type": "quantitative"},
-            "latitude": {"field": "properties.center_lat", "type": "quantitative"},
+            "longitude": {"field": "lon", "type": "quantitative"},
+            "latitude": {"field": "lat", "type": "quantitative"},
             "longitude2": {"field": "label_lon"},
             "latitude2": {"field": "label_lat"}
           }
         },
         {
-          "mark": {"type": "text", "fontSize": 7.5, "fontWeight": "bold", "fill": "#1a3a5c"},
+          "mark": {"type": "text", "fontSize": 7.5, "fontWeight": "bold", "fill": "black"},
           "encoding": {
             "longitude": {"field": "label_lon", "type": "quantitative"},
             "latitude": {"field": "label_lat", "type": "quantitative"},
-            "text": {"field": "short_name", "type": "nominal"}
+            "text": {"field": "name", "type": "nominal"}
           }
         }
       ]
