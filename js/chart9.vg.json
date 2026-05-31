@@ -1,55 +1,72 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
   "width": "container",
-  "height": 300,
+  "height": 380,
   "title": {
-    "text": "Flood Loss Per Capita by State (2025)",
-    "subtitle": "RM per person — smaller states bear a heavier burden",
-    "fontSize": 16,
-    "subtitleFontSize": 12
+    "text": "Total Loss vs Loss Per Capita by State (2025)",
+    "subtitle": "Line connects total loss (circle) to per capita loss (diamond) — longer line = unequal burden",
+    "fontSize": 14,
+    "subtitleFontSize": 11
   },
   "data": {
     "url": "https://raw.githubusercontent.com/angelyne2006/FIT2179/main/data/flood_losses_per_capita.csv"
   },
+  "transform": [
+    {
+      "calculate": "datum.loss_2025_rm_million / datum.loss_2025_rm_million * 100",
+      "as": "dummy"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "state",
+      "type": "nominal",
+      "title": null,
+      "sort": {"field": "loss_per_capita_rm", "order": "descending"}
+    }
+  },
   "layer": [
     {
-      "mark": {"type": "point", "filled": true, "size": 150},
+      "mark": {"type": "rule", "color": "#3D2412", "strokeWidth": 2},
       "encoding": {
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "title": "State",
-          "sort": {"field": "loss_per_capita_rm", "order": "descending"}
-        },
         "x": {
-          "field": "loss_per_capita_rm",
+          "field": "loss_2025_rm_million",
           "type": "quantitative",
-          "title": "Loss Per Capita (RM)"
+          "title": "RM Million (Total) / RM (Per Capita)"
         },
-        "color": {
-          "field": "loss_per_capita_rm",
-          "type": "quantitative",
-          "scale": {"scheme": "reds"},
-          "legend": {"title": "Loss Per Capita (RM)"}
-        },
+        "x2": {"field": "loss_per_capita_rm"}
+      }
+    },
+    {
+      "mark": {"type": "point", "filled": true, "size": 100, "shape": "circle"},
+      "encoding": {
+        "x": {"field": "loss_2025_rm_million", "type": "quantitative"},
+        "color": {"value": "#898129"},
         "tooltip": [
           {"field": "state", "type": "nominal", "title": "State"},
-          {"field": "loss_per_capita_rm", "type": "quantitative", "title": "Loss Per Capita (RM)", "format": ",.2f"},
-          {"field": "loss_2025_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)", "format": ",.1f"},
-          {"field": "population_thousands", "type": "quantitative", "title": "Population (thousands)", "format": ",.1f"}
+          {"field": "loss_2025_rm_million", "type": "quantitative", "title": "Total Loss (RM Million)", "format": ",.1f"}
         ]
       }
     },
     {
-      "mark": {"type": "text", "align": "left", "dx": 10, "fontSize": 10},
+      "mark": {"type": "point", "filled": true, "size": 100, "shape": "diamond"},
       "encoding": {
-        "y": {
-          "field": "state",
-          "type": "nominal",
-          "sort": {"field": "loss_per_capita_rm", "order": "descending"}
-        },
         "x": {"field": "loss_per_capita_rm", "type": "quantitative"},
-        "text": {"field": "loss_per_capita_rm", "type": "quantitative", "format": ",.2f"}
+        "color": {"value": "#892931"},
+        "tooltip": [
+          {"field": "state", "type": "nominal", "title": "State"},
+          {"field": "loss_per_capita_rm", "type": "quantitative", "title": "Loss Per Capita (RM)", "format": ",.2f"}
+        ]
+      }
+    },
+    {
+      "mark": {"type": "text", "align": "right", "dx": -8, "fontSize": 9, "color": "#e63946", "fontWeight": "bold"},
+      "transform": [
+        {"filter": "datum.loss_per_capita_rm > 50"}
+      ],
+      "encoding": {
+        "x": {"field": "loss_per_capita_rm", "type": "quantitative"},
+        "text": {"field": "loss_per_capita_rm", "type": "quantitative", "format": ",.0f"}
       }
     }
   ]
