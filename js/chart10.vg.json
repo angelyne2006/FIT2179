@@ -13,7 +13,7 @@
   },
   "layer": [
     {
-      "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": "#1a3a5c"},
+      "mark": {"type": "bar", "cornerRadiusEnd": 4, "color": "#DEA193"},
       "encoding": {
         "y": {
           "field": "state",
