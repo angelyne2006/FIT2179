@@ -49,12 +49,6 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 15px;
   margin: 8px;
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-card .caption {
-  margin-top: auto;
 }
 
 .pure-u-1-2 {
@@ -87,15 +81,6 @@ body {
   margin-top: 20px;
 }
 
-.footer a {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: underline;
-}
-
-.footer a:hover {
-  color: white;
-}
-
 .intro {
   font-size: 1.1em;
   color: rgba(255, 255, 255, 0.9);
@@ -103,7 +88,7 @@ body {
 }
 
 .intro-text {
-  font-size: 0.95em;
+  font-size: 1.05em;
   color: #333;
   line-height: 1.8;
   max-width: 100%;
@@ -173,3 +158,22 @@ body {
   color: #555;
   line-height: 1.4;
 }
+
+.chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card .caption {
+  margin-top: auto;
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  color: white;
+}
+
