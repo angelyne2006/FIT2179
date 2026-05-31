@@ -40,7 +40,7 @@
           "type": "nominal",
           "scale": {
             "domain": ["2024", "2025"],
-            "range": ["#1a3a5c", "#e63946"]
+            "range": ["#1a3a5c", "#457b9d"]
           },
           "legend": {"title": "Year"}
         },
