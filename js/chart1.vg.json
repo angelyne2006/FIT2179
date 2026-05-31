@@ -4,7 +4,7 @@
   "height": 380,
   "title": {
     "text": "Monthly Rainfall Anomaly by State (2025)",
-    "subtitle": "% of long-term average — each dot = one month · above 100% means wetter than normal",
+    "subtitle": "% of long-term average - each dot = one month · above 100% means wetter than normal",
     "fontSize": 16,
     "subtitleFontSize": 12
   },
