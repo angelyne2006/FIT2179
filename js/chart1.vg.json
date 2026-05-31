@@ -58,7 +58,7 @@
           "title": "Month",
           "scale": {
             "domain": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            "range": ["#1f77b4","#ff7f0e","#2ca02c","#d62728","#9467bd","#8c564b","#e377c2","#7f7f7f","#bcbd22","#17becf","#aec7e8","#ffbb78"]
+            "range": ["#1E3A8A","#3B82F6","#93C5FD","#F59E0B","#D97706","#7C3AED","#A78BFA","#10B981","#065F46","#111827","#3383FF","#ffbb78"]
           }
         },
         "tooltip": [
